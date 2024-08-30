@@ -35,8 +35,15 @@ export const InitialList = [
  },
 ];
 
+export const initialValues = {
+  firstname: "",
+  lastname: "",
+  birthday: "",
+};
+
 export const App = (props) => {
    return (
-     <List initialList={InitialList} />
+     <List initialList={InitialList} 
+     />
    );
-  };
+};
