@@ -12,20 +12,7 @@ export const List = (props) => {
      const newList = list.filter((item) => item.id !== id);
      setList(newList);
    }
-   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-  };
 
- const handleAdd = (values) => {
-  const newList = list.concat({ values, id: uuidv4() });
-  setList(newList);
-  setName('');
- }
-  
 
    return (
     <div>
