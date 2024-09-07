@@ -3,7 +3,7 @@ import React, { useState } from "react";
 export const ElementEdit = (props) => {
     console.log(props);
 
-    const element = {props};
+    const {element} = props;
 
     return (
         <div>

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 export const ElementDefault = (props) => {
     console.log(props);
 
-    const element = {props};
+    const {element} = props;
 
     return (
         <div>
@@ -12,7 +12,7 @@ export const ElementDefault = (props) => {
                 <span> {element.secondname} </span>
                 <span> {element.birthday} </span>
                 <button type="button" onClick={() => props.actionEdit(element.id)}>
-                    Редактировать
+                    Удалить
                 </button>
             </li>
         </div>

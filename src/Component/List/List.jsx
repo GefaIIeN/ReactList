@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import './List.css';
 import { ElementDefault } from "../ElementDefault/ElementDefault.jsx";
 import { ElementEdit } from "../ElementEdit/ElementEdit.jsx";
-import { createField } from "../../App/AppData.jsx";
+import { addField, createField } from "../../App/AppData.jsx";
 
 
 
@@ -11,43 +11,30 @@ export const List = (props) => {
    const [value, setValue] = useState('')
    console.log(list);
 
-  
 
-   const handleEdit = (id) => {
-
- }
  
  const handleRemove = (id) => {
-   removeField(id);
-   const newList = list.filter((item) => item.id !== id);
-   setList(newList);
+   setList(list.filter((u => u.id !== id)));
+ }
+
+ const actionAdd = () => {  
+  setList([...list,
+    createField('Имя ',  'Фамилия ', '00.00.0000')
+  ])
  }
  
+ const handleEdit = () => {
+
+ }
+
  const inputValue = (event) => {
   setValue(event.target.value);
  }
 
  const handleInit = (id) => {
-  addField(id);
-  const newList = list.concat({id});
-  setList(newList);
 
  }
 
-
-   const actionAdd = () => {
-    createField();
-        return (         
-          <div className={'elementEdit'} >
-              <ElementEdit 
-                  element={element}
-                  actionRemove={handleRemove}
-                  actionInit={handleInit}
-                  inputValue={inputValue}
-              />
-          </div>    
-        );
-   }
 
 
    return (
@@ -58,7 +45,7 @@ export const List = (props) => {
                     <div className={'elementList'} key={i}>
                         <ElementDefault 
                             element={element}
-                            actionEdit={handleEdit}
+                            actionEdit={handleRemove}
                         />
                     </div>
                 ))
