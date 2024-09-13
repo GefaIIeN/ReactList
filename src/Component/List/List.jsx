@@ -1,95 +1,68 @@
-import React, {useState} from "react";
-import './List.css';
-import { ElementDefault } from "../ElementDefault/ElementDefault.jsx";
-import { ElementEdit } from "../ElementEdit/ElementEdit.jsx";
+import React, { useState } from "react";
+
+import { ListElement } from "../ListElement/ListElement.jsx";
 import { createField } from "../../App/AppData.jsx";
 
+import './List.css';
 
+const defaultNameValue = 'Имя';
+const defaultSecondNameValue = 'Фамилия';
+const defaultDatewValue = '00.00.0000';
 
 export const List = (props) => {
-   const [list, setList] = useState([...props.elements]);
-   console.log(list);
+   const {
+      elements
+   } = props
+   const [editElementId, setEditElementId] = useState(null);
+   const [list, setList] = useState([...elements]);
+   const handleRemove = (id) => {
+      setList(list.filter((u => u.id !== id)));
+   }
 
-
- 
- const handleRemove = (id) => {
-   setList(list.filter((u => u.id !== id)));
- }
-
- const actionAdd = () => {  
-  setList([...list,
-    createField('Имя ',  'Фамилия ', '00.00.0000')
-  ])
- }
- 
- function editSave(id, event) {
-     const copy = Object.assign([], list);
-     copy.map(obj => {
-      obj.id.firstname = event.target.value;
-      obj.id.secondname = event.target.value;
-      obj.id.birthday = event.target.value;
-     setList(copy);
-     })
-}
-function editStart(id) {
-     const copy = Object.assign([], list);
-     setList(copy.map(obj => {
-      if (obj.id == id) {
-         return {...obj, isEdit: true};
-      } else {
-         return obj;
+   const handleAdd = () => {
+      const newList = [...list];
+      newList.push(createField(defaultNameValue, defaultSecondNameValue, defaultDatewValue));
+      setList(newList)
+   }
+   const handleEnterEdit = (id) => {
+      if (editElementId != null) {
+         console.log('need reset old edit element id');
       }
-   }));
+      setEditElementId(id);
    };
 
-function editEnd(id) {
-     const copy = Object.assign([], list);
-     setList(copy.map(obj => {
-      if (obj.id == id) {
-         return {...obj, isEdit: false};
-      } else {
-         return obj;
-      }
-   }));
-}
-
- const result = list.map((element) => {
-  console.log(element)
-	
-  let subElement;
-  if (element.isEdit) {
-      subElement = 
-      <div className={'elementListEdit'}>
-          <ElementEdit 
-              element={element.id}
-              editSave={editSave}
-              editEnd={editEnd}
-          />
-      </div>
-
-  } else {
-      subElement = 
-      <div className={'elementList'}>
-          <ElementDefault 
-              element={element}
-              actionRemove={handleRemove}
-              actionEdit={editStart}
-          />
-      </div>
-  }
-
-  return <li key={element.id}>{subElement}</li>;
-});
+   const handleExitEdit = (newElem) => {
+      const newList = list.map(elem => {
+         if (elem.id == newElem.id) {
+            return { ...newElem };
+         } else {
+            return elem;
+         }
+      });
+      setList(newList)
+      setEditElementId(null);
+   }
 
    return (
-    <div>
-          <ul>
-          {result}
-          </ul>
-          <button type="button" onClick={() => actionAdd()}>
-            Добавить
-          </button>
-
-     </div>
+      <>
+         <ul className={'listElements'}>
+            {
+               list.map((element) => <ListElement 
+                     key={element.id}
+                     element={element}
+                     onRemove={handleRemove}
+                     onEnterEdit={handleEnterEdit}
+                     onExitEdit={handleExitEdit}
+                     isEdit={element.id==editElementId}
+                  />
+               )
+            }
+         </ul>
+         <div className={'actionsGroup'}>
+            <button id={'actionAdd'} type="button" onClick={() => handleAdd()}>
+               Добавить
+            </button>
+         </div>
+      </>
    );
 }

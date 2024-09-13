@@ -6,7 +6,6 @@ import { initFields, getUsers } from './AppData.jsx';
 export const App = () => {
   initFields();
   return (
-    <List elements={getUsers()} 
-    />
+    <List elements={getUsers()}/>
   );
 };
