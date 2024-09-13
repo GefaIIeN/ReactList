@@ -24,25 +24,21 @@ export const List = (props) => {
  
  function editSave(id, event) {
      const copy = Object.assign([], list);
-     copy.id.firstname = event.target.value;
-     copy.id.secondname = event.target.value;
-     copy.id.birthday = event.target.value;
+     copy.map(obj => {
+      obj.id.firstname = event.target.value;
+      obj.id.secondname = event.target.value;
+      obj.id.birthday = event.target.value;
      setList(copy);
+     })
 }
 function editStart(id) {
      const copy = Object.assign([], list);
-     setList(copy.map(element => {
-      if (element.id == id) {
-         return {...element, [isEdit]: true};
-      } else {
-         return element;
-      }
-   }));
-}
+     setList(copy.map(obj => obj.id == id ? obj.id.isEdit : true))
+   };
+
 function editEnd(id) {
      const copy = Object.assign([], list);
-     copy.id.isEdit = false;
-     setList(copy);
+     setList(copy.map(obj => obj.id == id ? obj.id.isEdit : false))
 }
 
  const result = list.map((element) => {
