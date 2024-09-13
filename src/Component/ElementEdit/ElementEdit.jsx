@@ -6,18 +6,13 @@ export const ElementEdit = (props) => {
     const {element} = props;
 
     return (
-        <div>
-            <li id={element.id}>
-                <input firstName={element.firstname} onChange={inputValue} />
-                <input secondName={element.secondname} onChange={inputValue} />
-                <input birthDay={element.birthday} onChange={inputValue} />
-                <button type="button" onClick={() => props.actionRemove(element.id)}>
-                    Удалить
+        <div id={element.id}>
+                <input value={element.firstname} onChange={editSave(element.id, event)} />
+                <input value={element.secondname} onChange={editSave(element.id, event)} />
+                <input value={element.birthday} onChange={editSave(element.id, event)} />
+                <button type="button" onBlur={() => props.editEnd(element.id)}>
+                    Закончить редактирование
                 </button>
-                <button type="button" onClick={() => props.actionInit(element.id)}>
-                    Сохранить
-                </button>
-            </li>
         </div>
     );
 }

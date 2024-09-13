@@ -2,13 +2,12 @@ import React, {useState} from "react";
 import './List.css';
 import { ElementDefault } from "../ElementDefault/ElementDefault.jsx";
 import { ElementEdit } from "../ElementEdit/ElementEdit.jsx";
-import { addField, createField } from "../../App/AppData.jsx";
+import { createField } from "../../App/AppData.jsx";
 
 
 
 export const List = (props) => {
    const [list, setList] = useState([...props.elements]);
-   const [value, setValue] = useState('')
    console.log(list);
 
 
@@ -23,33 +22,61 @@ export const List = (props) => {
   ])
  }
  
- const handleEdit = () => {
+ function editSave(id, event) {
+     const copy = Object.assign([], list);
+     copy.id.firstname = event.target.value;
+     copy.id.secondname = event.target.value;
+     copy.id.birthday = event.target.value;
+     setList(copy);
+}
+function editStart(id) {
+     const copy = Object.assign([], list);
+     setList(copy.map(element => {
+      if (element.id == id) {
+         return {...element, [isEdit]: true};
+      } else {
+         return element;
+      }
+   }));
+}
+function editEnd(id) {
+     const copy = Object.assign([], list);
+     copy.id.isEdit = false;
+     setList(copy);
+}
 
- }
+ const result = list.map((element) => {
+  console.log(element)
+	
+  let subElement;
+  if (element.isEdit) {
+      subElement = 
+      <div className={'elementListEdit'}>
+          <ElementEdit 
+              element={element}
+              editSave={editSave}
+              editEnd={editEnd}
+          />
+      </div>
 
- const inputValue = (event) => {
-  setValue(event.target.value);
- }
+  } else {
+      subElement = 
+      <div className={'elementList'}>
+          <ElementDefault 
+              element={element}
+              actionRemove={handleRemove}
+              actionEdit={editStart}
+          />
+      </div>
+  }
 
- const handleInit = (id) => {
-
- }
-
-
+  return <li key={element.id}>{subElement}</li>;
+});
 
    return (
     <div>
           <ul>
-          {
-                list.map((element, i) => (
-                    <div className={'elementList'} key={i}>
-                        <ElementDefault 
-                            element={element}
-                            actionRemove={handleRemove}
-                        />
-                    </div>
-                ))
-            }
+          {result}
           </ul>
           <button type="button" onClick={() => actionAdd()}>
             Добавить

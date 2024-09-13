@@ -5,6 +5,7 @@ const UserFields = [];
 export const createField = (firstName, secondName, birthDay, id) => {
   return {
       id: id ? id : uuv4(),
+      isEdit: false,
       firstname: firstName,
       secondname: secondName,
       birthday: birthDay,
