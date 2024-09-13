@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 
-export const ElementEdit = (props) => {
-    console.log(props);
+export const ElementEdit = (element) => {
+    console.log(element);
 
-    const {element} = props;
 
     return (
         <div id={element.id}>

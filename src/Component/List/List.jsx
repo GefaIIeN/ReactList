@@ -33,12 +33,24 @@ export const List = (props) => {
 }
 function editStart(id) {
      const copy = Object.assign([], list);
-     setList(copy.map(obj => obj.id == id ? obj.id.isEdit : true))
+     setList(copy.map(obj => {
+      if (obj.id == id) {
+         return {...obj, isEdit: true};
+      } else {
+         return obj;
+      }
+   }));
    };
 
 function editEnd(id) {
      const copy = Object.assign([], list);
-     setList(copy.map(obj => obj.id == id ? obj.id.isEdit : false))
+     setList(copy.map(obj => {
+      if (obj.id == id) {
+         return {...obj, isEdit: false};
+      } else {
+         return obj;
+      }
+   }));
 }
 
  const result = list.map((element) => {
@@ -49,7 +61,7 @@ function editEnd(id) {
       subElement = 
       <div className={'elementListEdit'}>
           <ElementEdit 
-              element={element}
+              element={element.id}
               editSave={editSave}
               editEnd={editEnd}
           />
