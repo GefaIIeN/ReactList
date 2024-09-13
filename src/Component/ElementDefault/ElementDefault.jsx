@@ -12,6 +12,9 @@ export const ElementDefault = (props) => {
                 <span> {element.secondname} </span>
                 <span> {element.birthday} </span>
                 <button type="button" onClick={() => props.actionEdit(element.id)}>
+                    Редактировать
+                </button>
+                <button type="button" onClick={() => props.actionRemove(element.id)}>
                     Удалить
                 </button>
             </li>

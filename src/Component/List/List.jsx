@@ -45,7 +45,7 @@ export const List = (props) => {
                     <div className={'elementList'} key={i}>
                         <ElementDefault 
                             element={element}
-                            actionEdit={handleRemove}
+                            actionRemove={handleRemove}
                         />
                     </div>
                 ))
