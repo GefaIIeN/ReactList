@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
-import { createField } from "../../App/AppData.jsx";
+import './ListElement.scss';
+
+import { createField } from "../../App";
 
 export const ListElement = (props) => {
     const {
@@ -27,11 +29,11 @@ export const ListElement = (props) => {
 
     const getEditElement = () => {
         return (
-        <>
+        <div className="editElements">
             <input value={changedFirstNameValue} onChange={(event)=>{handleChange('firstName', event.target.value)}} />
             <input value={changedSecondNameValue} onChange={(event)=>{handleChange('secondName', event.target.value)}} />
             <input value={changedBirthdayValue} onChange={(event)=>{handleChange('birthday', event.target.value)}} />
-        </>
+        </div>
         );
     }
 
@@ -52,7 +54,11 @@ export const ListElement = (props) => {
             <div>
                 {
                 (!isEdit) ?
-                    <label>{`${changedFirstNameValue} ${changedSecondNameValue} ${changedBirthdayValue}`}</label> :
+                    <div className="showElements">
+                    <label className="showElement">{`${changedFirstNameValue}`}</label>
+                    <label className="showElement">{`${changedSecondNameValue}`}</label>
+                    <label className="showElement">{`${changedBirthdayValue}`}</label>
+                    </div> :
                     getEditElement()
                 }
             </div>

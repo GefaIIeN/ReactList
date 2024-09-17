@@ -1,21 +1,26 @@
 import React, { useState } from "react";
 
-import { ListElement } from "../ListElement/ListElement.jsx";
-import { createField } from "../../App/AppData.jsx";
+import { createField, IField } from "../../App";
+import { ListElement } from "../ListElement/ListElement";
 
-import './List.css';
+import './List.scss';
 
-const defaultNameValue = 'Имя';
-const defaultSecondNameValue = 'Фамилия';
-const defaultDatewValue = '00.00.0000';
+const defaultNameValue: string = 'Имя';
+const defaultSecondNameValue: string = 'Фамилия';
+const defaultDatewValue: Date = new Date('00.00.0000');
 
-export const List = (props) => {
-   const {
-      elements
-   } = props
-   const [editElementId, setEditElementId] = useState(null);
-   const [list, setList] = useState([...elements]);
-   const handleRemove = (id) => {
+type ListProps = {
+    elements: IField[]
+}
+
+export const List = ({
+    elements
+}:ListProps): JSX.Element => {
+   
+   const [editElementId, setEditElementId] = useState<string|null>(null);
+   const [list, setList] = useState<IField[]>([...elements]);
+
+   const handleRemove = (id: string) => {
       setList(list.filter((u => u.id !== id)));
    }
 
@@ -24,14 +29,14 @@ export const List = (props) => {
       newList.push(createField(defaultNameValue, defaultSecondNameValue, defaultDatewValue));
       setList(newList)
    }
-   const handleEnterEdit = (id) => {
+   const handleEnterEdit = (id: string) => {
       if (editElementId != null) {
          console.log('need reset old edit element id');
       }
       setEditElementId(id);
    };
 
-   const handleExitEdit = (newElem) => {
+   const handleExitEdit = (newElem: IField) => {
       const newList = list.map(elem => {
          if (elem.id == newElem.id) {
             return { ...newElem };

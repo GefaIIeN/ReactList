@@ -1,0 +1,17 @@
+.listElement {
+    .editElements {
+        display: flex;
+        flex-direction: column;
+        background-color: darkorange;
+
+        input {
+            width: 50%;
+        }
+    }
+
+    .showElements {
+        display: flex;
+        flex-direction: column;
+        background-color: greenyellow;
+    }
+}
