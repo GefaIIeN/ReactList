@@ -1,4 +1,6 @@
 
 export {App} from './App';
 
-export {IField, createField, getUsers, addField, removeField} from './AppData';
+export { createField, getUsers, addField, removeField} from './AppData';
+
+export type {IField} from './AppData';

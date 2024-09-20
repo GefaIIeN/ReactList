@@ -1,13 +1,29 @@
 {
-    "compilerOptions": {
-      "outDir": "./bin/dist/",
-      "noImplicitAny": true,
-      "module": "ESNext",
-      "target": "es5",
-      "sourceMap": true,
-      "jsx": "react",
-      "allowJs": true,
-      "moduleResolution": "node",
-      "allowSyntheticDefaultImports":true
-    }
+  "compilerOptions": {
+    "outDir": "./bin/dist/",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "types": [
+      "node"
+    ],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "target": "es5",
+    "sourceMap": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "jsx": "react"
   }
+}

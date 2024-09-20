@@ -14,13 +14,17 @@ type Props = {
 }
 
 export const ListElement = ({
-    element, onRemove, onEnterEdit, onExitEdit, isEdit
+    element, 
+    onRemove, 
+    onEnterEdit, 
+    onExitEdit, 
+    isEdit
     }:Props): JSX.Element => {
 
 
     const [changedFirstNameValue, setFirstNameValue] = useState(element.firstname);
     const [changedSecondNameValue, setSecondNameValue] = useState(element.secondname);
-    const [changedBirthdayValue, setBirthdayValue] = useState(element.birthday);
+    const [changedBirthdayValue, setBirthdayValue] = useState(element.birthday.toLocaleDateString("ru-RU"));
 
     const handleChange = (type: any, value: any) => {
         if (''+type == 'firstName') {
@@ -45,7 +49,7 @@ export const ListElement = ({
     const getEditButton = () => {
         if (isEdit) {
                 return (
-                    <button type="button" onClick={() => onExitEdit(createField(changedFirstNameValue, changedSecondNameValue, changedBirthdayValue, element.id))}>{`Выйти из редактирования`}</button>
+                    <button type="button" onClick={() => onExitEdit(createField(changedFirstNameValue, changedSecondNameValue, new Date(changedBirthdayValue), element.id))}>{`Выйти из редактирования`}</button>
             );
         } else {
             return (
