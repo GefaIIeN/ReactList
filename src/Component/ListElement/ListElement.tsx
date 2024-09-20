@@ -1,23 +1,28 @@
 import React, { useState } from "react";
 
+import { createField, IField } from "../../App";
+
+
 import './ListElement.scss';
 
-import { createField } from "../../App";
+type Props = {
+        element: IField, 
+        onRemove: (id: string) => void, 
+        onEnterEdit: (id: string) => void, 
+        onExitEdit: (newElem: IField) => void, 
+        isEdit: boolean  
+}
 
-export const ListElement = (props) => {
-    const {
-        element,
-        onRemove,
-        onEnterEdit,
-        onExitEdit,
-        isEdit
-    } = props;
+export const ListElement = ({
+    element, onRemove, onEnterEdit, onExitEdit, isEdit
+    }:Props): JSX.Element => {
+
 
     const [changedFirstNameValue, setFirstNameValue] = useState(element.firstname);
     const [changedSecondNameValue, setSecondNameValue] = useState(element.secondname);
     const [changedBirthdayValue, setBirthdayValue] = useState(element.birthday);
 
-    const handleChange = (type, value) => {
+    const handleChange = (type: any, value: any) => {
         if (''+type == 'firstName') {
             setFirstNameValue(value);
         } else if (''+type == 'secondName') {
@@ -44,7 +49,7 @@ export const ListElement = (props) => {
             );
         } else {
             return (
-                <button type="button" onClick={() => onEnterEdit(element.id)}>{`Редактирование`}</button>
+                <button type="button" onClick={() => onEnterEdit(element.id)}>{`Редактирование`}</button> 
             );
         }
     }
